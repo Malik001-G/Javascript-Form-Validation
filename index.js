@@ -49,7 +49,7 @@ validateEmail = () => {
         emailError.innerHTML = "Email is required";
         return false;
     }
-    if (!email.match(/^[a-zA-Z0-9. _-]+@[a-zA-Z0-9. -]+\. [a-zA-Z]{2,4}$/)) {
+    if (!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
         emailError.innerHTML = "Email invalid";
         return false;
     }
@@ -57,4 +57,30 @@ validateEmail = () => {
     check_circle
     </span>`;
     return true;
+}
+
+validateMessage = () => {
+    var message = document.getElementById('contact-message').value;
+    var required = 30;
+    var left = required - message.length;
+
+    if (left > 0) {
+        messageError.innerHTML = left + " more characters required"
+        return false;
+    }
+    messageError.innerHTML =`<span class="material-symbols-outlined">
+    check_circle
+    </span>`;
+
+}
+
+validateForm = () => {
+    if (!validateName() || !validatePhone() || !validateEmail() || !validateMessage()) {
+        submitError.style.display = 'block'
+        submitError.innerHTML = `Please fix error to submit`;
+        setTimeout(() => {
+            submitError.style.display = 'none'
+        }, 3000);
+        return false;
+    }
 }
